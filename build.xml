@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="qpid-multicastmain" default="all">
+  
+  
+  <property file="build.properties"/>
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="128m"/>
+  <patternset id="ignored.files">
+    <exclude name="**/CVS/**"/>
+    <exclude name="**/SCCS/**"/>
+    <exclude name="**/RCS/**"/>
+    <exclude name="**/rcs/**"/>
+    <exclude name="**/.DS_Store/**"/>
+    <exclude name="**/.svn/**"/>
+    <exclude name="**/.pyc/**"/>
+    <exclude name="**/.pyo/**"/>
+    <exclude name="**/*.pyc/**"/>
+    <exclude name="**/*.pyo/**"/>
+    <exclude name="**/.git/**"/>
+    <exclude name="**/*.hprof/**"/>
+    <exclude name="**/_svn/**"/>
+    <exclude name="**/.hg/**"/>
+    <exclude name="**/*.lib/**"/>
+    <exclude name="**/*~/**"/>
+    <exclude name="**/__pycache__/**"/>
+    <exclude name="**/.bundle/**"/>
+    <exclude name="**/*.rbc/**"/>
+  </patternset>
+  <patternset id="library.patterns">
+    <include name="*.zip"/>
+    <include name="*.apk"/>
+    <include name="*.war"/>
+    <include name="*.egg"/>
+    <include name="*.ear"/>
+    <include name="*.swc"/>
+    <include name="*.jar"/>
+  </patternset>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+    <include name="**/?*.ftl"/>
+  </patternset>
+  
+  
+  <!-- Project Libraries -->
+  
+  <path id="library.commons-cli-1.1.classpath">
+    <pathelement location="${basedir}/lib/commons-cli-1.1.jar"/>
+  </path>
+  
+  <path id="library.qpid_0.14.classpath">
+    <pathelement location="${basedir}/lib/geronimo-jms_1.1_spec-1.0.jar"/>
+    <pathelement location="${basedir}/lib/qpid-client-0.14.jar"/>
+    <pathelement location="${basedir}/lib/qpid-common-0.14.jar"/>
+    <pathelement location="${basedir}/lib/slf4j-api-1.6.1.jar"/>
+  </path>
+  
+  <!-- Modules -->
+  
+  
+  <!-- Module qpid-multicastmain -->
+  
+  <dirname property="module.qpid-multicastmain.basedir" file="${ant.file}"/>
+  
+  
+  
+  <property name="compiler.args.qpid-multicastmain" value="${compiler.args}"/>
+  
+  <property name="qpid-multicastmain.output.dir" value="${module.qpid-multicastmain.basedir}/out/production/qpid-multicastmain"/>
+  <property name="qpid-multicastmain.testoutput.dir" value="${module.qpid-multicastmain.basedir}/out/test/qpid-multicastmain"/>
+  
+  <path id="qpid-multicastmain.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="qpid-multicastmain.module.production.classpath">
+    <path refid="library.qpid_0.14.classpath"/>
+    <path refid="library.commons-cli-1.1.classpath"/>
+  </path>
+  
+  <path id="qpid-multicastmain.runtime.production.module.classpath">
+    <pathelement location="${qpid-multicastmain.output.dir}"/>
+    <path refid="library.qpid_0.14.classpath"/>
+    <path refid="library.commons-cli-1.1.classpath"/>
+  </path>
+  
+  <path id="qpid-multicastmain.module.classpath">
+    <pathelement location="${qpid-multicastmain.output.dir}"/>
+    <path refid="library.qpid_0.14.classpath"/>
+    <path refid="library.commons-cli-1.1.classpath"/>
+  </path>
+  
+  <path id="qpid-multicastmain.runtime.module.classpath">
+    <pathelement location="${qpid-multicastmain.testoutput.dir}"/>
+    <pathelement location="${qpid-multicastmain.output.dir}"/>
+    <path refid="library.qpid_0.14.classpath"/>
+    <path refid="library.commons-cli-1.1.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.qpid-multicastmain">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.qpid-multicastmain">
+    <patternset refid="excluded.from.module.qpid-multicastmain"/>
+  </patternset>
+  
+  <path id="qpid-multicastmain.module.sourcepath">
+    <dirset dir="${module.qpid-multicastmain.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.qpid-multicastmain" depends="compile.module.qpid-multicastmain.production,compile.module.qpid-multicastmain.tests" description="Compile module qpid-multicastmain"/>
+  
+  <target name="compile.module.qpid-multicastmain.production" description="Compile module qpid-multicastmain; production classes">
+    <mkdir dir="${qpid-multicastmain.output.dir}"/>
+    <javac destdir="${qpid-multicastmain.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
+      <compilerarg line="${compiler.args.qpid-multicastmain}"/>
+      <bootclasspath refid="qpid-multicastmain.module.bootclasspath"/>
+      <classpath refid="qpid-multicastmain.module.production.classpath"/>
+      <src refid="qpid-multicastmain.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.qpid-multicastmain"/>
+    </javac>
+    
+    <copy todir="${qpid-multicastmain.output.dir}">
+      <fileset dir="${module.qpid-multicastmain.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.qpid-multicastmain.tests" depends="compile.module.qpid-multicastmain.production" description="compile module qpid-multicastmain; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.qpid-multicastmain" description="cleanup module">
+    <delete dir="${qpid-multicastmain.output.dir}"/>
+    <delete dir="${qpid-multicastmain.testoutput.dir}"/>
+  </target>
+  
+  <target name="init" description="Build initialization">
+    <!-- Perform any build initialization in this target -->
+  </target>
+  
+  <target name="clean" depends="clean.module.qpid-multicastmain" description="cleanup all"/>
+  
+  <target name="build.modules" depends="init, clean, compile.module.qpid-multicastmain" description="build all modules"/>
+  
+  <target name="init.artifacts">
+    <property name="artifacts.temp.dir" value="${basedir}/__artifacts_temp"/>
+    <property name="artifact.output.qpid-multicastmain:jar" value="${basedir}/out/artifacts/qpid_multicastmain_jar"/>
+    <mkdir dir="${artifacts.temp.dir}"/>
+    <property name="temp.jar.path.qpid-multicastmain.jar" value="${artifacts.temp.dir}/qpid-multicastmain.jar"/>
+  </target>
+  
+  <target name="artifact.qpid-multicastmain:jar" depends="init.artifacts, compile.module.qpid-multicastmain" description="Build &#39;qpid-multicastmain:jar&#39; artifact">
+    <property name="artifact.temp.output.qpid-multicastmain:jar" value="${artifacts.temp.dir}/qpid_multicastmain_jar"/>
+    <mkdir dir="${artifact.temp.output.qpid-multicastmain:jar}"/>
+    <jar destfile="${temp.jar.path.qpid-multicastmain.jar}" duplicate="preserve" filesetmanifest="mergewithoutmain">
+      <zipfileset file="${basedir}/src/META-INF/MANIFEST.MF" prefix="META-INF"/>
+      <zipfileset dir="${qpid-multicastmain.output.dir}"/>
+      <zipfileset src="${basedir}/lib/geronimo-jms_1.1_spec-1.0.jar"/>
+      <zipfileset src="${basedir}/lib/qpid-client-0.14.jar"/>
+      <zipfileset src="${basedir}/lib/qpid-common-0.14.jar"/>
+      <zipfileset src="${basedir}/lib/slf4j-api-1.6.1.jar"/>
+      <zipfileset src="${basedir}/lib/commons-cli-1.1.jar"/>
+    </jar>
+    <copy file="${temp.jar.path.qpid-multicastmain.jar}" tofile="${artifact.temp.output.qpid-multicastmain:jar}/qpid-multicastmain.jar"/>
+  </target>
+  
+  <target name="build.all.artifacts" depends="artifact.qpid-multicastmain:jar" description="Build all artifacts">
+    <mkdir dir="${artifact.output.qpid-multicastmain:jar}"/>
+    <copy todir="${artifact.output.qpid-multicastmain:jar}">
+      <fileset dir="${artifact.temp.output.qpid-multicastmain:jar}"/>
+    </copy>
+    
+    <!-- Delete temporary files -->
+    <delete dir="${artifacts.temp.dir}"/>
+  </target>
+  
+  <target name="all" depends="build.modules, build.all.artifacts" description="build all"/>
+</project>
